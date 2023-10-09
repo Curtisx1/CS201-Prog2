@@ -1,10 +1,4 @@
 ﻿  main.cpp
   process_reviews.cpp
-  word_replacement.cpp
-C:\Users\Curti\Documents\sentiment_analysis\word_replacement.cpp(55,84): warning C4267: 'argument': conversion from 'size_t' to '_Ty', possible loss of data
-          with
-          [
-              _Ty=int
-          ]
   Generating Code...
   sentiment_analysis.vcxproj -> C:\Users\Curti\Documents\sentiment_analysis\x64\Debug\sentiment_analysis.exe

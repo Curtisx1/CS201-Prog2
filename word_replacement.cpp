@@ -1,17 +1,18 @@
 // Curtis Lemke
 // Program #2: Sentiment Analysis
 // 10/3/2023-10/8/2023
+
 #include <iostream>
 #include <sstream>
 #include <vector>
 #include "word_replacement.h"
 #include <random>
-#include <algorithm>
+#include <iomanip>
+
 using namespace std;
 
 WordReplacement::WordReplacement(const SentimentParser& sentimentParser) : sentimentParser(sentimentParser) {
     // Initialize random number generator
-    // Found the mt19937 from here: https://www.geeksforgeeks.org/stdmt19937-class-in-cpp/
     random_device rd;
     randomGenerator = mt19937(rd());
 }
@@ -30,10 +31,14 @@ void WordReplacement::replaceWords(string& review, float& originalSentiment, flo
     originalSentiment = 0.0;
     updatedSentiment = 0.0;
 
+    // Prepare data for output formatting
+    vector<pair<string, string>> replacements;  // Store original and replacement words
+    float totalSentimentChange = 0.0;
+
     // Loop through the words in the review
     for (string& word : words) {
         // Convert word to lowercase and remove punctuation
-        // For some reason I cannot get this to work properly with review5a.txt
+        string originalWord = word;  // Store the original word
         for (char& c : word) {
             c = tolower(c);
         }
@@ -61,14 +66,18 @@ void WordReplacement::replaceWords(string& review, float& originalSentiment, flo
                 int randomIndex = distribution(randomGenerator);
                 string replacementWord = positiveWords[randomIndex];
 
-                // Replace the word and update sentiment
+                // Replace the word in the words vector and update sentiment
                 updatedSentiment -= wordSentiment;  // Subtract the negative sentiment
                 for (char& c : replacementWord) {
                     c = tolower(c);
                 }
                 word = replacementWord;
-                updatedSentiment += sentimentParser.getSentiments()[randomIndex].sentiment;  // Add the positive sentiment
+                updatedSentiment += sentimentParser.findSentiment(replacementWord);  // Add the positive sentiment
                 ++numWordsReplaced;
+
+                // Store original and replacement words for output
+                replacements.push_back(make_pair(originalWord, replacementWord));
+                totalSentimentChange += sentimentParser.findSentiment(replacementWord) - wordSentiment;
             }
         }
     }
@@ -78,6 +87,19 @@ void WordReplacement::replaceWords(string& review, float& originalSentiment, flo
     for (const string& word : words) {
         review += word + " ";
     }
+
+    // Output the word replacements and sentiment changes
+    cout << "WORDS UPDATED TO BE MORE POSITIVE:" << endl;
+    cout << setw(20) << left << "Original" << setw(20) << "Replacement" << setw(10) << "Change" << endl;
+    cout << fixed << setprecision(2);
+    for (const auto& replacement : replacements) {
+        cout << setw(20) << left << replacement.first << setw(20) << replacement.second
+            << setw(10) << sentimentParser.findSentiment(replacement.second) - sentimentParser.findSentiment(replacement.first) << endl;
+    }
+
+    // Output the totals
+    cout << "TOTALS:" << endl;
+    cout << setw(20) << "-" << setw(20) << numWordsReplaced << setw(10) << totalSentimentChange << endl;
 
     // Print the number of words replaced
     cout << "Words replaced: " << numWordsReplaced << endl;

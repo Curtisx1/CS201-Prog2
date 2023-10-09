@@ -4,7 +4,10 @@
 #include "sentiment_parser.h"
 #include <random>
 #include <vector>
-#include <string>  // Add this line to include the <string> header
+#include <string>
+#include <iostream>
+#include <iomanip>
+#include <sstream>
 using namespace std;
 
 class WordReplacement {
