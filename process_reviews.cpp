@@ -46,20 +46,23 @@ void ProcessReviews::processReview(const string& inputFileName) {
         string word;
 
         while (iss >> word) {
-            // Convert word to lowercase
+            string sanitizedWord;
+            // Validate character range
             for (char& c : word) {
-                c = tolower(c);
+                if (c < -1 || c > 255) {
+                    sanitizedWord += tolower(c); // Convert to lowercase and add to the sanitized word
+                }
+                if (!sanitizedWord.empty()) {
+                    // Use regular expression to check if the word contains non-alphabetical characters
+                    if (!regex_match(word, wordPattern)) {
+                        continue;  // Skip words with non-alphabetical characters
+                    }
+                    // Process the sanitized word (e.g., check its sentiment)
+                    float wordSentiment = sentimentParser.findSentiment(sanitizedWord);
+                    originalSentiment += wordSentiment;
+                }
             }
-
-            // Use regular expression to check if the word contains non-alphabetical characters
-            if (!regex_match(word, wordPattern)) {
-                continue;  // Skip words with non-alphabetical characters
-            }
-
-            float wordSentiment = sentimentParser.findSentiment(word);
-            originalSentiment += wordSentiment;
         }
-
         // Check if the line length exceeds the maximum
         if (line.length() > maxLineLength) {
             // Split the line into multiple lines with a maximum length of 80 characters
