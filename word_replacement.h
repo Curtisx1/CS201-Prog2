@@ -5,6 +5,7 @@
 #include <random>
 #include <vector>
 #include <string>  // Add this line to include the <string> header
+using namespace std;
 
 class WordReplacement {
 public:
@@ -12,13 +13,13 @@ public:
     WordReplacement(const SentimentParser& sentimentParser);
 
     // Function to replace words and update sentiments
-    void replaceWords(std::string& review, float& originalSentiment, float& updatedSentiment);  // Use 'std::string' instead of 'string'
+    void replaceWords(string& review, float& originalSentiment, float& updatedSentiment);
 
 private:
     const SentimentParser& sentimentParser;  // Reference to SentimentParser
 
     // Random number generator for word replacement
-    std::mt19937 randomGenerator;  // Use 'std::mt19937' instead of 'mt19937'
+    mt19937 randomGenerator; 
 };
 
 #endif  // WORD_REPLACEMENT_H

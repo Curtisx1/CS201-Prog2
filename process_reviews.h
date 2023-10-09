@@ -4,7 +4,8 @@
 
 #include "sentiment_parser.h"
 #include "word_replacement.h"
-#include <string> // Add this line to include the <string> header
+#include <string>
+using namespace std;
 
 class ProcessReviews {
 public:
@@ -12,7 +13,7 @@ public:
     ProcessReviews(const SentimentParser& sentimentParser, WordReplacement& wordReplacement);
 
     // Function to process a review
-    void processReview(const std::string& inputFileName); // Use 'std::string' instead of 'string'
+    void processReview(const string& inputFileName);
 
 private:
     const SentimentParser& sentimentParser;

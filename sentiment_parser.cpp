@@ -1,3 +1,6 @@
+// Curtis Lemke
+// Program #2: Sentiment Analysis
+// 10/3/2023-10/8/2023
 #include "sentiment_parser.h"
 #include <fstream>
 #include <sstream>
@@ -24,6 +27,7 @@ SentimentParser::SentimentParser(const string& filename) {
             ws.sentiment = sentimentValue;
             sentiments.push_back(ws);
 
+            // Checking if the value is higher or lower than 1
             if (sentimentValue > 1.00) {
                 positiveWords.push_back(word);
             }
@@ -55,6 +59,6 @@ float SentimentParser::findSentiment(const string& word) const {
             return ws.sentiment;
         }
     }
-    // Return a default value or handle the case where the word is not found
+    // Return a default value. In this case I chose 0.
     return 0.0;
 }

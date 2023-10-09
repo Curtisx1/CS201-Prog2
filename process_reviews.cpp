@@ -1,3 +1,6 @@
+// Curtis Lemke
+// Program #2: Sentiment Analysis
+// 10/3/2023-10/8/2023
 #include "process_reviews.h"
 #include <iostream>
 #include <fstream>

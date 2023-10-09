@@ -1,3 +1,6 @@
+// Curtis Lemke
+// Program #2: Sentiment Analysis
+// 10/3/2023-10/8/2023
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -8,6 +11,7 @@ using namespace std;
 
 WordReplacement::WordReplacement(const SentimentParser& sentimentParser) : sentimentParser(sentimentParser) {
     // Initialize random number generator
+    // Found the mt19937 from here: https://www.geeksforgeeks.org/stdmt19937-class-in-cpp/
     random_device rd;
     randomGenerator = mt19937(rd());
 }
@@ -29,6 +33,7 @@ void WordReplacement::replaceWords(string& review, float& originalSentiment, flo
     // Loop through the words in the review
     for (string& word : words) {
         // Convert word to lowercase and remove punctuation
+        // For some reason I cannot get this to work properly with review5a.txt
         for (char& c : word) {
             c = tolower(c);
         }
@@ -48,7 +53,7 @@ void WordReplacement::replaceWords(string& review, float& originalSentiment, flo
         updatedSentiment += wordSentiment;
 
         // Check if the word sentiment is negative enough for replacement
-        if (wordSentiment < -1.0) {  // Adjust the threshold as needed
+        if (wordSentiment < -1.0) {
             // Randomly select a positive replacement
             vector<string> positiveWords = sentimentParser.getPositiveWords();
             if (!positiveWords.empty()) {

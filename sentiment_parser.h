@@ -3,26 +3,26 @@
 
 #include <vector>
 #include <string>
-
+using namespace std;
 struct WordSentiment {
-    std::string word;  // Use 'std::string' instead of 'string'
+    string word;
     float sentiment;
 };
 
 class SentimentParser {
 public:
-    SentimentParser(const std::string& filename);
-    std::vector<WordSentiment> getSentiments() const;
-    std::vector<std::string> getPositiveWords() const;
-    std::vector<std::string> getNegativeWords() const;
+    SentimentParser(const string& filename);
+    vector<WordSentiment> getSentiments() const;
+    vector<string> getPositiveWords() const;
+    vector<string> getNegativeWords() const;
 
     // Declare the findSentiment function
-    float findSentiment(const std::string& word) const;
+    float findSentiment(const string& word) const;
 
 private:
-    std::vector<WordSentiment> sentiments;
-    std::vector<std::string> positiveWords;
-    std::vector<std::string> negativeWords;
+    vector<WordSentiment> sentiments;
+    vector<string> positiveWords;
+    vector<string> negativeWords;
 };
 
 #endif
