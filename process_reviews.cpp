@@ -53,11 +53,11 @@ void ProcessReviews::processReview(const string& inputFileName) {
                     sanitizedWord += tolower(c); // Convert to lowercase and add to the sanitized word
                 }
                 if (!sanitizedWord.empty()) {
-                    // Use regular expression to check if the word contains non-alphabetical characters
+                    // check if the word contains non-alphabetical characters
                     if (!regex_match(word, wordPattern)) {
                         continue;  // Skip words with non-alphabetical characters
                     }
-                    // Process the sanitized word (e.g., check its sentiment)
+                    // check its sentiment
                     float wordSentiment = sentimentParser.findSentiment(sanitizedWord);
                     originalSentiment += wordSentiment;
                 }
