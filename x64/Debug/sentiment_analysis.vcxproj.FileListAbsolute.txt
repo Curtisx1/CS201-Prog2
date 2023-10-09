@@ -1,1 +1,2 @@
 C:\Users\Curti\Documents\sentiment_analysis\x64\Debug\sentiment_analysis.exe
+C:\Users\Curti\CS201-Prog2\x64\Debug\sentiment_analysis.exe

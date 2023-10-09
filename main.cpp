@@ -33,6 +33,10 @@ int main() {
             if (inputFileName == currentDirectory + "\\sentiment.txt") {
                 continue;
             }
+            // Same for the temp file used to process the reviews
+            if (inputFileName == currentDirectory + "\\processed_reviews.txt") {
+                continue;
+            }
 
             if (entry.is_regular_file() && inputFileName.substr(inputFileName.find_last_of(".") + 1) == "txt") {
                 ifstream inputFile(inputFileName);
